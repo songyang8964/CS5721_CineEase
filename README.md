@@ -1,1 +1,15 @@
 # CS5721_CineEase
+Tech Stack:
+Springboot: 3.1.5
+Java: 17
+Postgresql
+swagger
+Restful API
+
+Group members:
+|Name|Id|Experience|Domain/Framework/Programming Language|
+|----|---------|----|------|
+|BEINING XU|23019271|
+|QINGYU WANG|23131624|
+|LIHONG XU|23026294|
+|SONG YANG|23042427|
