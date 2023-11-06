@@ -8,6 +8,7 @@ public class CineEaseApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CineEaseApplication.class, args);
+		System.out.println("cinease");
 	}
 
 }
