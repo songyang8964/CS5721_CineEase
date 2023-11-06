@@ -1,6 +1,28 @@
-// package com.ywxx.cineEase.entity;
+package com.ywxx.cineEase.entity;
 
-// public class movie {
-//     private int id;
-    
-// }
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "movies")
+public class Movie {    
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer movieId;
+    private String name;
+
+    public Movie () {
+    }
+
+    public Movie(String name) {
+      this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+               "id=" + movieId +
+               ", title='" + name + '\'' +
+               '}';
+    }
+}
