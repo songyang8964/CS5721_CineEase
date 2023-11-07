@@ -3,26 +3,37 @@ package com.ywxx.cineEase.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "movies")
+@Table(name = "movie")
 public class Movie {    
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer movieId;
-    private String name;
+
+    @Column(unique = true)
+    private String movieName;
+    private String summary;
+    private Integer price;
+    private String actors;
+    private String language;
+    private Integer durationMins;
+    private String genre;
 
     public Movie () {
     }
 
-    public Movie(String name) {
-      this.name = name;
+    public Movie(String movieName, String summary, Integer price, String actors, String language, Integer durationMins, String genre) {
+      this.movieName = movieName;
+      this.summary = summary;
+      this.price = price;
+      this.actors = actors;
+      this.language = language;
+      this.durationMins = durationMins;
+      this.genre = genre;
     }
 
     @Override
     public String toString() {
-        return "Movie{" +
-               "id=" + movieId +
-               ", title='" + name + '\'' +
-               '}';
+        return movieId + " " + movieName;
     }
 }
