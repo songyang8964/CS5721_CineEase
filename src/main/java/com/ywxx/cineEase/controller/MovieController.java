@@ -8,21 +8,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ywxx.cineEase.entity.Movie;
 import com.ywxx.cineEase.repository.MovieRepository;
+import com.ywxx.cineEase.service.MovieService;
 
 import java.util.List;
 
 @RestController
 public class MovieController {
     @Autowired
-    private MovieRepository movieRepository;
+    private MovieService movieService;
 
     @PostMapping("/save")
     public Movie saveMovie(@RequestBody Movie movie) {
-        return movieRepository.save(movie);
+        return movieService.save(movie);
     }
 
     @GetMapping("/movies")
     public String listMovies() {
-        return movieRepository.findAll().toString();
+        return movieService.findAll().toString();
     }
 }
