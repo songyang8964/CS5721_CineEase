@@ -1,39 +1,28 @@
 package com.ywxx.cineEase.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 @Entity
-@Table(name = "movie")
-public class Movie {    
-
+@Table(name = "MOVIE")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Movie {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer movieId;
-
-    @Column(unique = true)
+    @Column(name = "MOVIE_NAME")
     private String movieName;
-    private String summary;
-    private Integer price;
-    private String actors;
-    private String language;
-    private Integer durationMins;
-    private String genre;
+    @Column(name = "MOVIE_ID")
+    private long movieId;
+    @Column(name = "MOVIE_POSTER_URL")
+    private String moviePosterUrl;
+    @Column(name = "MOVIE_TAGS")
+    private String movieTags;
 
-    public Movie () {
-    }
-
-    public Movie(String movieName, String summary, Integer price, String actors, String language, Integer durationMins, String genre) {
-      this.movieName = movieName;
-      this.summary = summary;
-      this.price = price;
-      this.actors = actors;
-      this.language = language;
-      this.durationMins = durationMins;
-      this.genre = genre;
-    }
-
-    @Override
-    public String toString() {
-        return movieId + " " + movieName + " " + summary + " " + price + " " + actors + " " + language + " " + durationMins + " " + genre;
-    }
 }
