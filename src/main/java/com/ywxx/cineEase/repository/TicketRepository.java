@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends CrudRepository<Ticket, Long> {
-    List<Ticket> findByScreeningId(long screeningId);
+    // List<Ticket> findByScreengId(long screenId);
 }

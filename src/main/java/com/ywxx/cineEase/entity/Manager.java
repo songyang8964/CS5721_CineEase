@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class Manager {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long managerId;
     private String password;
     private String email;
