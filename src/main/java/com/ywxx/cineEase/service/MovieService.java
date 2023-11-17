@@ -32,13 +32,20 @@ public class MovieService {
           movieRepository.save(movie);
      }
 
-     public Result updateMovie(Movie movie) {
-          Long movieId = movie.getMovieId();
-          if (movieRepository.findByMovieId(movieId) == null) {
-               return Result.fail("movie does not exist");
+     public Result updateMovie(Long movieId, Movie updatedMovie) {
+
+          if (movieRepository.existsById(movieId)) {
+               Movie existingMovie = movieRepository.findByMovieId(movieId);
+               existingMovie.setMovieName(updatedMovie.getMovieName());
+               existingMovie.setSummary(updatedMovie.getSummary());
+               existingMovie.setPrice(updatedMovie.getPrice());
+               existingMovie.setActors(updatedMovie.getActors());
+               existingMovie.setLanguage(updatedMovie.getLanguage());
+               existingMovie.setDurationMins(updatedMovie.getDurationMins());
+               existingMovie.setGenre(updatedMovie.getGenre());          
+               return Result.ok(movieRepository.save(existingMovie));
           }
-          updateMovie(movie);
-            return Result.ok();
+          return Result.fail("movie does not exist");
      }
 
     public Result deleteMovieById(Long movieId) {

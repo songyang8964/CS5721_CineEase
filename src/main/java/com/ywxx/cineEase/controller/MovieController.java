@@ -39,10 +39,10 @@ public class MovieController {
         return movieService.getAllMovies().toString();
     }
 
-    @PutMapping
-    public Result updateMovie(@RequestBody Movie movie) {
+    @PutMapping("/update/{id}")
+    public Result updateMovie(@PathVariable("id") Long movieId, @RequestBody Movie movie) {
         // write to database
-        return movieService.updateMovie(movie);
+        return movieService.updateMovie(movieId, movie);
     }
 
 }
