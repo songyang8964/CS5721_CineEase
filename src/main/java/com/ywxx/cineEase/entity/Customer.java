@@ -8,19 +8,19 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
-@Table(name = "USER")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class User {
+public class Customer {
     @Id
-    @Column(name="USER_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(name="USERNAME", nullable = false, unique = true)
-    private String username;
-    @Column(name="PASSWORD")
+    private String email;
+    private String phone;
+    private String firstName;
+    private String lastName;
     private String password;
 
+    //should have basic, standard, and Premium Customer with different discount (For Factory Pattern)!!!!!!!!!!!
 
 }

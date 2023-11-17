@@ -11,7 +11,7 @@ import com.ywxx.cineEase.repository.MovieRepository;
 
 @Service
 public class MovieService {
-    
+
      @Autowired
      private MovieRepository movieRepository;
 
@@ -20,7 +20,6 @@ public class MovieService {
      }
 
      public Result getMovieById(long movieId) {
-         // return movieRepository.findByMovieId(movieId);
           return Result.ok(movieRepository.findByMovieId(movieId));
      }
 
@@ -42,19 +41,18 @@ public class MovieService {
                existingMovie.setActors(updatedMovie.getActors());
                existingMovie.setLanguage(updatedMovie.getLanguage());
                existingMovie.setDurationMins(updatedMovie.getDurationMins());
-               existingMovie.setGenre(updatedMovie.getGenre());          
+               existingMovie.setGenre(updatedMovie.getGenre());
                return Result.ok(movieRepository.save(existingMovie));
           }
           return Result.fail("movie does not exist");
      }
 
-    public Result deleteMovieById(Long movieId) {
+     public Result deleteMovieById(Long movieId) {
           if (movieRepository.existsById(movieId)) {
                movieRepository.deleteById(movieId);
                return Result.ok();
           }
           return Result.fail("movie does not exist");
-    }
-
+     }
 
 }
