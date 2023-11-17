@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,9 +17,15 @@ public class Ticket {
     @Column(name = "TICKET_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long ticketId;
-    @Column(name = "SCREENING_ID")
-    private long screeningId;
-    @Column(name = "SEAT_NUM")
-    private int seatNum;
+    private long screenNum;
+    private long screenId;
+    private Long seatId;
+    private Long customerId;
+    private String paymentStatus;
+    private String ticketStatus;
+    private Long orderId;
+    private Timestamp time;
+
+
 
 }

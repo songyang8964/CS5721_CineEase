@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
+
 
 @Entity
 @Table(name = "SCREEN")
@@ -18,8 +20,10 @@ public class Screen {
     private long screenId;
     @Column(name = "THEATRE_ID")
     private long theatreId;
-    @Column(name = "SEATS_NUM")
-    private int seatsNum;
+
+    private int screenNum;
+    private long movieId;
+    private Timestamp time;
 
 
 }
