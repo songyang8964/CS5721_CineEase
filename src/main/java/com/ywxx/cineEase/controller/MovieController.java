@@ -24,21 +24,21 @@ public class MovieController {
 
     }
 
-    /**
-     * query movie by id
-     * @param id
-     * @return
-     */
     @GetMapping("/{id}")
     public Result queryMovieById(@PathVariable("id") Long id) {
         return movieService.getMovieById(id);
     }
 
-    /**
-     * update movie
-     * @param movie
-     * @return
-     */
+    @DeleteMapping("/delete/{id}")
+        public Result deleteMovieById(@PathVariable("id") Long id) {
+        return movieService.deleteMovieById(id);
+    }
+
+    @GetMapping("/all")
+    public String listMovies() {
+        return movieService.getAllMovies().toString();
+    }
+
     @PutMapping
     public Result updateMovie(@RequestBody Movie movie) {
         // write to database

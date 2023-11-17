@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MovieRepository extends CrudRepository<Movie, String> {
+public interface MovieRepository extends CrudRepository<Movie, Long> {
     Movie findByMovieName(String movieName);
-    Movie findByMovieId(long movieId);
+    Movie findByMovieId(Long movieId);
 }

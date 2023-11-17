@@ -41,9 +41,13 @@ public class MovieService {
             return Result.ok();
      }
 
-//     public void deleteMovie(long movieId) {
-//          movieRepository.deleteById(movieId);
-//     }
+    public Result deleteMovieById(Long movieId) {
+          if (movieRepository.existsById(movieId)) {
+               movieRepository.deleteById(movieId);
+               return Result.ok();
+          }
+          return Result.fail("movie does not exist");
+    }
 
 
 }
