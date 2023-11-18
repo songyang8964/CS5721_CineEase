@@ -1,23 +1,29 @@
 package com.ywxx.cineEase.service.payment.method;
 
 import com.ywxx.cineEase.utils.type.PayMethodType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class PaymentMethodFactory {
+    @Autowired
+    private GooglePayment googlePayment;
+    @Autowired
+    private CardPayment cardPayment;
+    @Autowired
+    private PaypalPayment paypalPayment;
 
     private CardInfo cardInfo;
     public PaymentMethodFactory() {}
 
-    public PaymentMethodFactory(CardInfo cardInfo) {
-        this.cardInfo = cardInfo;
-    }
 
     public PaymentMethod createPaymentMethod(PayMethodType paymentType) {
         if(paymentType == PayMethodType.GOOGLEPAY) {
-            return new GooglePayment();
+            return googlePayment;
         }else if (paymentType == PayMethodType.CARD) {
-            return new CardPayment(cardInfo);
+            return cardPayment;
         } else if (paymentType == PayMethodType.PAYPAL) {
-            return new PaypalPayment();
+            return paypalPayment;
         } else {
             throw new IllegalArgumentException("Unsupported payment type: " + paymentType);
         }

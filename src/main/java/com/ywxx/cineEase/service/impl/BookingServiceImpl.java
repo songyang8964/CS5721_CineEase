@@ -3,7 +3,7 @@ package com.ywxx.cineEase.service.impl;
 import com.ywxx.cineEase.entity.OrderInfo;
 import com.ywxx.cineEase.service.BookingService;
 import com.ywxx.cineEase.service.OrderInfoService;
-import com.ywxx.cineEase.service.payment.PaymentContext;
+import com.ywxx.cineEase.service.payment.state.PaymentContext;
 import com.ywxx.cineEase.service.payment.method.PaymentMethod;
 import com.ywxx.cineEase.service.payment.method.PaymentMethodFactory;
 import com.ywxx.cineEase.service.payment.state.CancelPaymentState;
@@ -19,6 +19,14 @@ import java.util.Optional;
 public class BookingServiceImpl implements BookingService {
     @Autowired
     private  OrderInfoService orderInfoService;
+    @Autowired
+    private PaymentContext paymentContext;
+    @Autowired
+    private PendingPaymentState pendingPaymentState;
+    @Autowired
+    private PaymentMethodFactory paymentMethodFactory;
+    @Autowired
+    private CancelPaymentState cancelPaymentState;
 
     @Override
     public void booking(Long ticketId, Long userId, PayMethodType payMethod) {
@@ -40,13 +48,11 @@ public class BookingServiceImpl implements BookingService {
         orderInfo.setUserId(userId);
         orderInfo.setTicketId(ticketId);
 
-        PaymentContext paymentContext = new PaymentContext();
-        paymentContext.setPaymentState(new PendingPaymentState());
+        paymentContext.setPaymentState(pendingPaymentState);
 
         OrderInfo newOrderInfo = paymentContext.processPayment(orderInfo).get();
 
         // 2, according to the payment method the user choose, process payment
-        PaymentMethodFactory paymentMethodFactory = new PaymentMethodFactory();
         PaymentMethod paymentMethod = paymentMethodFactory.createPaymentMethod(payMethod);
         paymentMethod.processPayment(newOrderInfo);
     }
@@ -63,8 +69,7 @@ public class BookingServiceImpl implements BookingService {
             return failPage;
         }else {
             // step 2 cancel order
-            PaymentContext paymentContext = new PaymentContext();
-            paymentContext.setPaymentState(new CancelPaymentState());
+            paymentContext.setPaymentState(cancelPaymentState);
 
             Optional<OrderInfo> newOrderInfo = paymentContext.processPayment(orderInfo.get());
 

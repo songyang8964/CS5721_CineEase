@@ -1,17 +1,20 @@
 package com.ywxx.cineEase.service.payment.method;
 
 import com.ywxx.cineEase.entity.OrderInfo;
-import com.ywxx.cineEase.service.payment.PaymentContext;
+import com.ywxx.cineEase.service.payment.state.PaymentContext;
 import com.ywxx.cineEase.service.payment.state.SuccessPaymentState;
 import com.ywxx.cineEase.utils.type.PayResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class CardPayment implements PaymentMethod{
-    private CardInfo cardInfo;
-    public CardPayment(CardInfo cardInfo) {
-        this.cardInfo = cardInfo;
-    }
+    @Autowired
+    private PaymentContext paymentContext;
+    @Autowired
+    private SuccessPaymentState successPaymentState;
 
     @Override
     public PayResult processPayment(OrderInfo orderInfo) {
@@ -23,8 +26,7 @@ public class CardPayment implements PaymentMethod{
         String result = "success";
         if(result.equals("success")) {
             // set orderInfo
-            PaymentContext paymentContext = new PaymentContext();
-            paymentContext.setPaymentState(new SuccessPaymentState());
+            paymentContext.setPaymentState(successPaymentState);
 
             Optional<OrderInfo> newOrderInfo = paymentContext.processPayment(orderInfo);
             if(newOrderInfo.isEmpty()) {
