@@ -6,4 +6,5 @@ public interface BookingService {
     void booking(Long ticketId, Long userId, PayMethodType payMethod);
 
     String cancel(Long orderInfoId);
+
 }

@@ -1,29 +1,26 @@
 package com.ywxx.cineEase.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.ywxx.cineEase.utils.Result;
+import jakarta.annotation.Resource;
+import org.springframework.web.bind.annotation.*;
 
 import com.ywxx.cineEase.entity.Movie;
-import com.ywxx.cineEase.repository.MovieRepository;
 import com.ywxx.cineEase.service.MovieService;
 
-import java.util.List;
-
 @RestController
+@RequestMapping("/movie")
 public class MovieController {
-    @Autowired
+    @Resource
     private MovieService movieService;
 
-    @PostMapping("/save")
-    public Movie saveMovie(@RequestBody Movie movie) {
-        return movieService.save(movie);
+    @GetMapping("/{id}")
+    public Result queryMovieById(@PathVariable("id") Long id) {
+        return movieService.getMovieById(id);
     }
 
-    @GetMapping("/movies")
+    @GetMapping("/all")
     public String listMovies() {
-        return movieService.findAll().toString();
+        return movieService.getAllMovies().toString();
     }
+
 }

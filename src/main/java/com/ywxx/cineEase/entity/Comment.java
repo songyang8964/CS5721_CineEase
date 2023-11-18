@@ -104,4 +104,5 @@ public class Comment {
     public void setReplyId(Long replyId) {
         this.replyId = replyId;
     }
+
 }
