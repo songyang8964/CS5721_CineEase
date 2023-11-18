@@ -1,9 +1,23 @@
 package com.ywxx.cineEase.controller;
 
-
-import org.springframework.web.bind.annotation.RestController;
+import com.ywxx.cineEase.service.BookingService;
+import com.ywxx.cineEase.utils.type.PayMethodType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/booking")
 public class BookingController {
+    @Autowired
+    private BookingService bookingService;
 
+    @GetMapping("/{ticketId}")
+    public void processPayment(@PathVariable("ticketId") Long ticketId, @RequestParam Long userId, @RequestParam PayMethodType payMethod) {
+        bookingService.booking(ticketId, userId, payMethod);
+    }
+
+    @GetMapping("/cancel/{orderInfoId}")
+    public String cancelPayment(@PathVariable("orderInfoId") Long orderInfoId) {
+        return bookingService.cancel(orderInfoId);
+    }
 }
