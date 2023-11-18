@@ -1,6 +1,5 @@
 package com.ywxx.cineEase.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,18 +13,15 @@ import java.sql.Timestamp;
 @Data
 public class Ticket {
     @Id
-    @Column(name = "TICKET_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ticketId;
     private long screenNum;
     private long screenId;
     private Long seatId;
-    private Long customerId;
     private String paymentStatus;
     private String ticketStatus;
-    private Long orderId;
     private Timestamp time;
-
-
-
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "customerId")
+    private Customer customer;
 }

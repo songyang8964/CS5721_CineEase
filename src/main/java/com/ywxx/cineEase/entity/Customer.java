@@ -13,14 +13,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class Customer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long customerId;
     private String email;
     private String phone;
     private String firstName;
     private String lastName;
     private String password;
-
-    //should have basic, standard, and Premium Customer with different discount (For Factory Pattern)!!!!!!!!!!!
-
 }
+//should have basic, standard, and Premium Customer with different discount (For Factory Pattern)!!!!!!!!!!!
+
