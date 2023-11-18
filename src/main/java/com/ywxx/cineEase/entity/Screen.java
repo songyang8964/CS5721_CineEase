@@ -25,5 +25,7 @@ public class Screen {
     private long movieId;
     private Timestamp time;
 
+    private boolean availableFlag;
+
 
 }
