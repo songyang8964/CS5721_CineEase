@@ -8,16 +8,15 @@ import lombok.NoArgsConstructor;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "SEAT")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Seat {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long seatId;
 
-    private char column;
+    private int col;
     private int row;
 
     private long screenId;
