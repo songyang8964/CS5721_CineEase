@@ -8,12 +8,22 @@ import java.util.List;
 
 import com.ywxx.cineEase.entity.Movie;
 import com.ywxx.cineEase.repository.MovieRepository;
+import com.ywxx.cineEase.service.command.MovieCommand;
+import com.ywxx.cineEase.service.command.MovieCommandManager;
+import com.ywxx.cineEase.service.command.RemoveMovieCommand;
+import com.ywxx.cineEase.service.command.UpdateMovieCommand;
 
 @Service
 public class MovieService {
 
      @Autowired
      private MovieRepository movieRepository;
+     private MovieCommandManager commandManager; 
+
+     public MovieService(MovieRepository movieRepository, MovieCommandManager commandManager) {
+          this.movieRepository = movieRepository;
+          this.commandManager = commandManager;
+      }
 
      public List<Movie> getAllMovies() {
           return (List<Movie>) movieRepository.findAll();
@@ -41,17 +51,29 @@ public class MovieService {
                existingMovie.setLanguage(updatedMovie.getLanguage());
                existingMovie.setDurationMins(updatedMovie.getDurationMins());
                existingMovie.setGenre(updatedMovie.getGenre());
-               return Result.ok(movieRepository.save(existingMovie));
+               MovieCommand updateCommand = new UpdateMovieCommand(existingMovie, updatedMovie, movieRepository);
+               commandManager.executeCommand(updateCommand);
+               return Result.ok();
+               //return Result.ok(movieRepository.save(existingMovie));
           }
           return Result.fail("movie does not exist");
      }
 
+     // public Result deleteMovieById(Long movieId) {
+     //      if (movieRepository.existsById(movieId)) {
+     //           //movieRepository.deleteById(movieId);
+     //           return Result.ok();
+     //      }
+     //      return Result.fail("movie does not exist");
+     // }
      public Result deleteMovieById(Long movieId) {
           if (movieRepository.existsById(movieId)) {
-               movieRepository.deleteById(movieId);
+               MovieCommand deleteComand = new RemoveMovieCommand(null, movieRepository);
+               commandManager.executeCommand(deleteComand);
                return Result.ok();
           }
           return Result.fail("movie does not exist");
      }
+
 
 }
