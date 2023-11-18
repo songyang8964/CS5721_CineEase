@@ -32,7 +32,6 @@ public class MovieService {
      }
 
      public Result updateMovie(Long movieId, Movie updatedMovie) {
-
           if (movieRepository.existsById(movieId)) {
                Movie existingMovie = movieRepository.findByMovieId(movieId);
                existingMovie.setMovieName(updatedMovie.getMovieName());

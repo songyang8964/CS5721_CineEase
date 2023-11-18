@@ -37,4 +37,11 @@ public class ManagementController {
         return ticketService.getAllTickets().toString();
     }
 
+    @DeleteMapping("/ticket/delete/{ticketId}")
+    public Result deleteTicketById(@PathVariable("ticketId") Long ticketId) {
+        return ticketService.deleteTicketById(ticketId);
+
+        
+    }
+
 }
