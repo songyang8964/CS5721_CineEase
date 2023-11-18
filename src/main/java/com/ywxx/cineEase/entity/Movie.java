@@ -1,28 +1,43 @@
 package com.ywxx.cineEase.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import jakarta.persistence.*;
+import java.sql.Timestamp;
+import java.time.Duration;
 
-@Entity
-@Table(name = "MOVIE")
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "movie")
 public class Movie {
+
     @Id
-    @Column(name = "MOVIE_NAME")
-    private String movieName;
-    @Column(name = "MOVIE_ID")
-    private long movieId;
-    @Column(name = "MOVIE_POSTER_URL")
-    private String moviePosterUrl;
-    @Column(name = "MOVIE_TAGS")
-    private String movieTags;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "movie_id")
+    private Integer movieId;
+
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "duration")
+    private Duration duration;
+
+    @Column(name = "language")
+    private String language;
+
+    @Column(name = "release_date")
+    private Timestamp releaseDate;
+
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "genre")
+    private String genre;
 
 }
