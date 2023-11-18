@@ -3,16 +3,15 @@ package com.ywxx.cineEase.service.impl;
 import com.ywxx.cineEase.entity.OrderInfo;
 import com.ywxx.cineEase.repository.OrderInfoRepository;
 import com.ywxx.cineEase.service.OrderInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class OrderInfoServiceImpl implements OrderInfoService {
-    private final OrderInfoRepository orderInfoRepository;
-
-    public OrderInfoServiceImpl(OrderInfoRepository orderInfoRepository) {
-        this.orderInfoRepository = orderInfoRepository;
-    }
-
+    @Autowired
+    private  OrderInfoRepository orderInfoRepository;
     @Override
     public OrderInfo updateOrderStatus(long orderId, Boolean status) {
         return null;

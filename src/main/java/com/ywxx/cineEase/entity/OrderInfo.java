@@ -8,7 +8,8 @@ import com.ywxx.cineEase.utils.type.PayMethodType;
 import java.util.Date;
 
 
-
+@Entity
+@Table(name = "order_info")
 public class OrderInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
