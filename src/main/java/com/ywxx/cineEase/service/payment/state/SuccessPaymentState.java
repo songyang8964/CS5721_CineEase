@@ -20,6 +20,6 @@ public class SuccessPaymentState implements PaymentState {
     public Optional<OrderInfo> processPayment(OrderInfo orderInfo) {
         orderInfo.setStatus(PayStatusType.SUCCESS);
 
-        return Optional.of(orderInfoService.createOrderInfo(orderInfo));
+        return Optional.of(orderInfoService.updateOrderInfo(orderInfo));
     }
 }
