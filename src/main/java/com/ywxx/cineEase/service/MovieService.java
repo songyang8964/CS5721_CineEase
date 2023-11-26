@@ -43,33 +43,17 @@ public class MovieService {
 
      public Result updateMovie(Long movieId, Movie updatedMovie) {
           if (movieRepository.existsById(movieId)) {
-               Movie existingMovie = movieRepository.findByMovieId(movieId);
-               existingMovie.setMovieName(updatedMovie.getMovieName());
-               existingMovie.setSummary(updatedMovie.getSummary());
-               existingMovie.setPrice(updatedMovie.getPrice());
-               existingMovie.setActors(updatedMovie.getActors());
-               existingMovie.setLanguage(updatedMovie.getLanguage());
-               existingMovie.setDurationMins(updatedMovie.getDurationMins());
-               existingMovie.setGenre(updatedMovie.getGenre());
-               MovieCommand updateCommand = new UpdateMovieCommand(existingMovie, updatedMovie, movieRepository);
-               commandManager.executeCommand(updateCommand);
+               MovieCommand updateCommand = new UpdateMovieCommand(updatedMovie, movieRepository);
+               commandManager.executeCommand(updateCommand, movieId);
                return Result.ok();
-               //return Result.ok(movieRepository.save(existingMovie));
           }
           return Result.fail("movie does not exist");
      }
 
-     // public Result deleteMovieById(Long movieId) {
-     //      if (movieRepository.existsById(movieId)) {
-     //           //movieRepository.deleteById(movieId);
-     //           return Result.ok();
-     //      }
-     //      return Result.fail("movie does not exist");
-     // }
      public Result deleteMovieById(Long movieId) {
           if (movieRepository.existsById(movieId)) {
-               MovieCommand deleteComand = new RemoveMovieCommand(null, movieRepository);
-               commandManager.executeCommand(deleteComand);
+               MovieCommand deleteComand = new RemoveMovieCommand(movieRepository);
+               commandManager.executeCommand(deleteComand, movieId);
                return Result.ok();
           }
           return Result.fail("movie does not exist");

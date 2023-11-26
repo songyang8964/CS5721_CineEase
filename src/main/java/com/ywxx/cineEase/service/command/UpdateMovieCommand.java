@@ -5,22 +5,25 @@ import com.ywxx.cineEase.repository.MovieRepository;
 
 public class UpdateMovieCommand implements MovieCommand {
 
-    private Movie movieToUpdate;
     private Movie updatedMovie;
     private MovieRepository movieRepository;
 
-    public UpdateMovieCommand(Movie movieToUpdate, Movie updatedMovie, MovieRepository movieRepository) {
-        this.movieToUpdate = movieToUpdate;
+    public UpdateMovieCommand(Movie updatedMovie, MovieRepository movieRepository) {
         this.updatedMovie = updatedMovie;
         this.movieRepository = movieRepository;
     }
 
-
-
     @Override
-    public void execute() {
-        // TODO Perform the update operation
-        System.out.println("updated a movie");
+    public void execute(Long movieId) {
+        Movie existingMovie = movieRepository.findByMovieId(movieId);
+        existingMovie.setMovieName(updatedMovie.getMovieName());
+        existingMovie.setSummary(updatedMovie.getSummary());
+        existingMovie.setPrice(updatedMovie.getPrice());
+        existingMovie.setActors(updatedMovie.getActors());
+        existingMovie.setLanguage(updatedMovie.getLanguage());
+        existingMovie.setDurationMins(updatedMovie.getDurationMins());
+        existingMovie.setGenre(updatedMovie.getGenre());
+        movieRepository.save(existingMovie);
     }
 
 }
