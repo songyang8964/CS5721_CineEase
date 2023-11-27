@@ -26,7 +26,7 @@ public class MvcConfig implements WebMvcConfigurer {
                 "/movie-type/**",  // permit all access to shop type
                 "/booking/**",
                 "/upload/**",
-                // knife4j swagger
+                // swagger
                 "/doc.html",
                 "/webjars/**",
                 "/swagger-resources",

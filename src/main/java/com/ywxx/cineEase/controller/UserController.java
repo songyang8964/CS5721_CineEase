@@ -1,6 +1,7 @@
 package com.ywxx.cineEase.controller;
 
 import com.ywxx.cineEase.entity.dto.LoginFormDTO;
+import com.ywxx.cineEase.service.UserService;
 import com.ywxx.cineEase.utils.Result;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;

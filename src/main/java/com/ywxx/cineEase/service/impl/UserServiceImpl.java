@@ -7,6 +7,7 @@ import com.ywxx.cineEase.entity.User;
 import com.ywxx.cineEase.entity.dto.LoginFormDTO;
 import com.ywxx.cineEase.entity.dto.UserDTO;
 import com.ywxx.cineEase.repository.UserRepository;
+import com.ywxx.cineEase.service.UserService;
 import com.ywxx.cineEase.utils.RegexUtils;
 import com.ywxx.cineEase.utils.Result;
 import jakarta.annotation.Resource;
