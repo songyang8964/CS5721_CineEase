@@ -1,5 +1,5 @@
 package com.ywxx.cineEase.service.command;
 
 public interface MovieCommand {
-    void execute();
+    void execute(Long movieId);
 }
