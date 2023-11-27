@@ -10,8 +10,6 @@ import com.ywxx.cineEase.repository.UserRepository;
 import com.ywxx.cineEase.service.IUserService;
 import com.ywxx.cineEase.utils.RegexUtils;
 import com.ywxx.cineEase.utils.Result;
-import com.ywxx.cineEase.utils.Validation.PhoneValidationStrategy;
-import com.ywxx.cineEase.utils.Validation.Validator;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -35,12 +33,12 @@ public class UserServiceImpl implements IUserService {
     private IUserService userService;
     @Resource
     private UserRepository userRepository;
+
     @Override
     public Result sendCode(String phone, HttpSession session) {
-        // apply the Strategy Pattern for phone number validation
-        Validator phoneValidator = new Validator(new PhoneValidationStrategy());
+
         //validate phone
-        if (!phoneValidator.validate(phone)) {
+        if (RegexUtils.isPhoneInvalid(phone)) {
             //phone is invalid
             return Result.fail("phone is invalid");
         }
@@ -93,6 +91,7 @@ public class UserServiceImpl implements IUserService {
 
     /**
      * create user with phone
+     *
      * @param phone
      * @return
      */

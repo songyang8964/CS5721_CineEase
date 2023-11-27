@@ -19,8 +19,5 @@ public class MovieController {
         return movieService.getMovieById(id);
     }
 
-    @GetMapping("/all")
-    public String listMovies() {
-        return movieService.getAllMovies().toString();
-    }
+
 }

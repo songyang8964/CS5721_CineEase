@@ -15,7 +15,7 @@ public class UserController {
     @Resource
     private IUserService userService;
 
-    @PostMapping("code")
+    @PostMapping("/code")
     public Result sendCode(@RequestParam("phone") String phone, HttpSession session) {
         // send message and save code
         return userService.sendCode(phone,session);

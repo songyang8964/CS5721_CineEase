@@ -27,17 +27,10 @@ public class Booking {
     @Column(name = "status")
     private Integer status;
 
-    @Column(name = "user_id",insertable=false, updatable=false)
+    @Column(name = "user_id")
     private Integer userId;
 
-    @Column(name = "show_id",insertable=false, updatable=false)
+    @Column(name = "show_id")
     private Integer showId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "show_id", referencedColumnName = "show_id")
-    private Show show;
 }
