@@ -9,8 +9,8 @@ public class MovieCommandManager {
     //responsible for executing commands.
     private List<MovieCommand> commandHistory = new ArrayList<>();
 
-    public void executeCommand(MovieCommand command) {
-        command.execute();
+    public void executeCommand(MovieCommand command, Long movieId) {
+        command.execute(movieId);
         commandHistory.add(command);
     }
 }
