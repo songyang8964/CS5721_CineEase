@@ -1,6 +1,9 @@
 package com.ywxx.cineEase.service.impl;
 
 import com.ywxx.cineEase.entity.OrderInfo;
+import com.ywxx.cineEase.entity.Seat;
+import com.ywxx.cineEase.repository.SeatRepository;
+import com.ywxx.cineEase.repository.TicketRepository;
 import com.ywxx.cineEase.service.BookingService;
 import com.ywxx.cineEase.service.OrderInfoService;
 import com.ywxx.cineEase.service.payment.state.PaymentContext;
@@ -12,7 +15,9 @@ import com.ywxx.cineEase.utils.type.PayMethodType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,23 +25,28 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     private  OrderInfoService orderInfoService;
     @Autowired
+    private SeatRepository seatRepository;
+    @Autowired
     private PaymentContext paymentContext;
     @Autowired
     private PendingPaymentState pendingPaymentState;
+    @Autowired
+    private TicketRepository ticketRepository;
     @Autowired
     private PaymentMethodFactory paymentMethodFactory;
     @Autowired
     private CancelPaymentState cancelPaymentState;
 
+    private List<BookingService> bookings = new ArrayList<>();
+
+    public void addBooking(BookingService booking) {
+        bookings.add(booking);
+    }
     @Override
     public void booking(Long ticketId, Long userId, PayMethodType payMethod) {
         // do something before paying
-        // todo 1, check ticket is valid
-        // todo 2, if valid, lock the ticket
-        // todo 3, get user membership, get user's discount, get final amount that user should pay.
-        // 4, according to the payment method the user choose, process payment
-        // todo 5, according to the payment state, update database, for example, Ticket status.
 
+        // todo 3, get user membership, get user's discount, get final amount that user should pay.
 
         // there are the implementation of step 4
 
@@ -75,7 +85,13 @@ public class BookingServiceImpl implements BookingService {
 
             // step 3 according to the cancel status from third-party platform, update movie's seat status
             if(newOrderInfo.isPresent()) {
-                // todo update movie's seat status here.
+                // update movie's seat status here.
+                Long ticketId = newOrderInfo.get().getTicketId();
+                Long seatId = ticketRepository.findById(ticketId).get().getSeatId();
+                Seat seat = seatRepository.findById(seatId).get();
+                seat.setAvailable(true);
+                seatRepository.save(seat);
+
             }
 
             // step 4 return redirect page
@@ -83,4 +99,13 @@ public class BookingServiceImpl implements BookingService {
         }
 
     }
+
+    @Override
+    public void show() {
+        for (BookingService booking : bookings) {
+            booking.show();
+        }
+    }
+
+
 }

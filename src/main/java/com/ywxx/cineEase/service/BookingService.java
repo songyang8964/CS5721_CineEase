@@ -7,4 +7,6 @@ public interface BookingService {
 
     String cancel(Long orderInfoId);
 
+    void show();
+
 }

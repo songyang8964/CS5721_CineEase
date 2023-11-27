@@ -1,16 +1,16 @@
 package com.ywxx.cineEase.controller;
 
 
-import com.ywxx.cineEase.entity.Movie;
-import com.ywxx.cineEase.entity.Screen;
-import com.ywxx.cineEase.entity.Seat;
-import com.ywxx.cineEase.entity.Ticket;
+import com.ywxx.cineEase.entity.*;
+import com.ywxx.cineEase.repository.CustomerRepository;
 import com.ywxx.cineEase.repository.ScreenRepository;
 import com.ywxx.cineEase.repository.SeatRepository;
 import com.ywxx.cineEase.repository.TicketRepository;
 import com.ywxx.cineEase.service.MovieService;
 import com.ywxx.cineEase.service.TicketService;
+import com.ywxx.cineEase.service.impl.BookingServiceImpl;
 import com.ywxx.cineEase.utils.Result;
+import com.ywxx.cineEase.utils.type.PayMethodType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +30,12 @@ public class BookingController {
     private SeatRepository seatRepository;
     @Autowired
     private TicketService ticketService;
+    @Autowired
+    private TicketRepository ticketRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
+    @Autowired
+    BookingServiceImpl bookingService;
     @GetMapping("/{movieName}")
     public Movie selectMovie(@PathVariable("movieName") String movieName)
     {
@@ -66,8 +72,8 @@ public class BookingController {
         return result;
     }
 
-    @GetMapping("/{movieName}/seat/{seatId}")
-    public Result bookSeat(@PathVariable("movieName") String movieName,@PathVariable("seatId") long seatId)
+    @GetMapping("/{movieName}/seat/{seatId}/{userId}")
+    public Result bookSeat(@PathVariable("movieName") String movieName,@PathVariable("seatId") long seatId,@PathVariable("userId") long userId)
     {
         Seat seat = seatRepository.findById(seatId).get();
         if(seat.isAvailable()) {
@@ -77,20 +83,24 @@ public class BookingController {
             ticket.setSeatId(seatId);
             ticket.setTicketStatus("0");
             ticket.setTime(seat.getTime());
-            //todo ticket.setCustomer();
+            ticket.setCustomer(customerRepository.findById(userId).get());
             ticket.setPaymentStatus("0");
             ticket.setScreenNum(screenRepository.findByScreenId(seat.getScreenId()).getScreenNum());
             ticket.setScreenId(seat.getScreenId());
             ticket.setTicketId(randomID);
+            bookingService.booking(randomID,userId, PayMethodType.CARD);
+            ticketRepository.save(ticket);
             return Result.ok(ticket);
         }
         return Result.fail("seat has been taken");
     }
 
-    @DeleteMapping("/{ticketId}")
-    public Result deleteTicket(@PathVariable("ticketId") long ticketId)
+    @DeleteMapping("/{ticketId}/{orderId}")
+    public String deleteTicket(@PathVariable("ticketId") long ticketId,@PathVariable("orderId") long orderId)
     {
-       return ticketService.deleteTicketById(ticketId);
+        ticketService.deleteTicketById(ticketId);
+        return bookingService.cancel(orderId);
+
 
     }
 
