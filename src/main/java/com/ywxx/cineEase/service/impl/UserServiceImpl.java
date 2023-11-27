@@ -24,11 +24,11 @@ import static com.ywxx.cineEase.utils.Constants.*;
 
 @Slf4j
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService {
     @Resource
     private StringRedisTemplate stringRedisTemplate;
     @Resource
-    private IUserService userService;
+    private UserService userService;
     @Resource
     private UserRepository userRepository;
 
