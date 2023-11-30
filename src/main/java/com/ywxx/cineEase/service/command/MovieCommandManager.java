@@ -13,4 +13,11 @@ public class MovieCommandManager {
         command.execute(movieId);
         commandHistory.add(command);
     }
+
+    public void undoLastCommand() {
+        if (!commandHistory.isEmpty()) {
+            MovieCommand lastCommand = commandHistory.remove(commandHistory.size() - 1);
+            lastCommand.undo();
+        }
+    }
 }

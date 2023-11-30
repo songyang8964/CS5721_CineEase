@@ -18,12 +18,12 @@ public class MovieService {
 
      @Autowired
      private MovieRepository movieRepository;
-     private MovieCommandManager commandManager; 
+     private MovieCommandManager commandManager;
 
      public MovieService(MovieRepository movieRepository, MovieCommandManager commandManager) {
           this.movieRepository = movieRepository;
           this.commandManager = commandManager;
-      }
+     }
 
      public List<Movie> getAllMovies() {
           return (List<Movie>) movieRepository.findAll();
@@ -59,5 +59,9 @@ public class MovieService {
           return Result.fail("movie does not exist");
      }
 
+     public Result undoLastCommand() {
+          commandManager.undoLastCommand();
+          return Result.ok();
+     }
 
 }

@@ -32,6 +32,11 @@ public class ManagementController {
         return movieService.updateMovie(movieId, movie);
     }
 
+    @PostMapping("/movie/undo")
+    public Result undoLastCommand() {
+        return movieService.undoLastCommand();
+    }
+
     @GetMapping("/ticket/all")
     public String listTickets() {
         return ticketService.getAllTickets().toString();
@@ -40,8 +45,6 @@ public class ManagementController {
     @DeleteMapping("/ticket/delete/{ticketId}")
     public Result deleteTicketById(@PathVariable("ticketId") Long ticketId) {
         return ticketService.deleteTicketById(ticketId);
-
-        
     }
 
 }
