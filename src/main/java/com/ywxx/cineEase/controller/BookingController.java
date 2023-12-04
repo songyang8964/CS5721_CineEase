@@ -77,17 +77,16 @@ public class BookingController {
     {
         Seat seat = seatRepository.findById(seatId).get();
         if(seat.isAvailable()) {
-            Ticket ticket = new Ticket();
+            //Ticket ticket = new Ticket();
             Random random = new Random();
             long randomID = random.nextLong(10000000000L);
-            ticket.setSeatId(seatId);
-            ticket.setTicketStatus("0");
-            ticket.setTime(seat.getTime());
-            ticket.setCustomer(customerRepository.findById(userId).get());
-            ticket.setPaymentStatus("0");
-            ticket.setScreenNum(screenRepository.findByScreenId(seat.getScreenId()).getScreenNum());
-            ticket.setScreenId(seat.getScreenId());
-            ticket.setTicketId(randomID);
+            Ticket ticket = new TicketBuilder().setSeatId(seatId).
+                    withTicketStatus("0").withTime(seat.getTime()).
+                    withCustomer(customerRepository.findById(userId).get()).
+                    withPaymentStatus("0").withScreenNum(screenRepository.findByScreenId(seat.getScreenId()).getScreenNum()).
+                    withTicketId(randomID).
+                    withScreenId(seat.getScreenId()).
+                    build();
             bookingService.booking(randomID,userId, PayMethodType.CARD);
             ticketRepository.save(ticket);
             return Result.ok(ticket);

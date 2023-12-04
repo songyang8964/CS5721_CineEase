@@ -21,6 +21,8 @@ public class Ticket {
     private String paymentStatus;
     private String ticketStatus;
     private Timestamp time;
+
+
     @ManyToOne
     @JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "customerId")
     private Customer customer;
