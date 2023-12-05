@@ -22,15 +22,6 @@ public class TicketService {
         return ticketRepository.findByCustomer_CustomerId(customerId);
     }
 
-    // public Result updateTicket(Long ticketId, Ticket updatedTicket) {
-    //     if (ticketRepository.existsById(ticketId)) {
-    //         Ticket existingTicket = TicketRepository.find;
-    //         existingTicket.setTicketName(updatedTicket.getScreenId());
-    //         return Result.ok(TicketRepository.save(existingTicket));
-    //     }
-    //     return Result.fail("Ticket does not exist");
-    // }
-
     public Result deleteTicketById(Long ticketId) {
         if (ticketRepository.existsById(ticketId)) {
                ticketRepository.deleteById(ticketId);

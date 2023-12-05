@@ -16,10 +16,6 @@ public class RemoveMovieCommand implements MovieCommand {
         this.movieRepository = movieRepository;
     }
 
-    // @Override
-    // public void execute(Long movieId) {
-    //     movieRepository.deleteById(movieId);
-    // }
     @Override
     public void execute(Long movieId) {
         deletedMovie = movieRepository.findById(movieId).orElse(null);
