@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 
 public class PasswordEncoder {
 
-
     public static String encode(String password) {
         // generate salt
         String salt = RandomUtil.randomString(20);

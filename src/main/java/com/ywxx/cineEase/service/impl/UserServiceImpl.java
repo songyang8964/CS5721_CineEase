@@ -51,6 +51,7 @@ public class UserServiceImpl implements UserService {
         return Result.ok();
     }
 
+
     @Override
     public Result login(@RequestBody LoginFormDTO loginForm, HttpSession session) {
         // implement login logic
@@ -87,6 +88,7 @@ public class UserServiceImpl implements UserService {
         // if the user is inactive for 30 minutes, the token will expire, indicating that the user has not interacted with the interceptor.
         return Result.ok(token);
     }
+
 
     /**
      * create user with phone
