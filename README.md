@@ -15,3 +15,7 @@ Group members:
 |SONG YANG|23042427|
 
 https://app.diagrams.net/#G1kl4n83GrfgbH7XERMJ99KPWsaQwFBLqL#%7B%22pageId%22%3A%22BXKK9xU9Rih5HaTarBnY%22%7D 
+
+
+**report**
+https://docs.google.com/document/d/1Hm9m7UXbAzDZwaERznK8VUGfxGW_UuFzdpDCHs_N9S0/edit?tab=t.0
